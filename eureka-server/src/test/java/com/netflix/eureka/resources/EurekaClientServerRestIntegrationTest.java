@@ -90,6 +90,7 @@ public class EurekaClientServerRestIntegrationTest {
                 serverCodecs,
                 eurekaServiceUrl
         );
+        Thread.sleep(Long.MAX_VALUE);
     }
 
     @AfterClass
