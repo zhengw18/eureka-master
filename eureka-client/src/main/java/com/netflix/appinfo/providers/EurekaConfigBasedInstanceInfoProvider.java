@@ -60,7 +60,7 @@ public class EurekaConfigBasedInstanceInfoProvider implements Provider<InstanceI
             // 创建 应用实例信息构建器
             InstanceInfo.Builder builder = InstanceInfo.Builder.newBuilder(vipAddressResolver);
 
-            // 应用实例编号
+            // 获得 应用实例编号
             // set the appropriate id for the InstanceInfo, falling back to datacenter Id if applicable, else hostname
             String instanceId = config.getInstanceId();
             DataCenterInfo dataCenterInfo = config.getDataCenterInfo();
@@ -110,10 +110,12 @@ public class EurekaConfigBasedInstanceInfoProvider implements Provider<InstanceI
             // 应用初始化后是否开启
             // Start off with the STARTING state to avoid traffic
             if (!config.isInstanceEnabledOnit()) {
+                //应用不开启，应用实例处于 STARTING 状态
                 InstanceStatus initialStatus = InstanceStatus.STARTING;
                 LOG.info("Setting initial instance status as: {}", initialStatus);
                 builder.setStatus(initialStatus);
             } else {
+                //应用开启，应用实例处于 UP 状态
                 LOG.info("Setting initial instance status as: {}. This may be too early for the instance to advertise "
                          + "itself as available. You would instead want to control this via a healthcheck handler.",
                          InstanceStatus.UP);
