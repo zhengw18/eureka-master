@@ -24,23 +24,23 @@
      out.print("<h4 id=\"uptime\">Zone: " + amazonInfo.get(AmazonInfo.MetaDataKey.availabilityZone) + ", instance-id: " + amazonInfo.get(AmazonInfo.MetaDataKey.instanceId));
   }
   %>
-  <h4 id="uptime">Current time: <%=StatusResource.getCurrentTimeAsString() %>, Uptime: <%=StatusInfo.getUpTime()%></h4>
-  <hr id="uptime">Lease expiration enabled: <%=registry.isLeaseExpirationEnabled() %>, Renews threshold: <%=registry.getNumOfRenewsPerMinThreshold() %>, Renews (last min):  <%=registry.getNumOfRenewsInLastMin() %></hr>
+  <h4 id="uptime">当前时间: <%=StatusResource.getCurrentTimeAsString() %>, Uptime: <%=StatusInfo.getUpTime()%></h4>
+  <hr id="uptime">租约到期后续期: <%=registry.isLeaseExpirationEnabled() %>, Renews threshold: <%=registry.getNumOfRenewsPerMinThreshold() %>, Renews (last min):  <%=registry.getNumOfRenewsInLastMin() %></hr>
   <% if (registry.isBelowRenewThresold() == 1) {
  	  if (!registry.isSelfPreservationModeEnabled()) {
    %>
-  <h4 id="uptime"><font size="+1" color="red"><b>RENEWALS ARE LESSER THAN THE THRESHOLD.THE SELF PRESERVATION MODE IS TURNED OFF.THIS MAY NOT PROTECT INSTANCE EXPIRY IN CASE OF NETWORK/OTHER PROBLEMS.</b></font></h4>
+  <h4 id="uptime"><font size="+1" color="red"><b>自我保护机制1.</b></font></h4>
    <%} else {%>
- 	 <h4 id="uptime"><font size="+1" color="red"><b>EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.</b></font></h4>
+ 	 <h4 id="uptime"><font size="+1" color="red"><b>自我保护机制2.</b></font></h4>
    <%} %>
    <%} else if (!registry.isSelfPreservationModeEnabled()) {
    	%>
-    <h4 id="uptime"><font size="+1" color="red"><b>THE SELF PRESERVATION MODE IS TURNED OFF.THIS MAY NOT PROTECT INSTANCE EXPIRY IN CASE OF NETWORK/OTHER PROBLEMS.</b></font></h4>
+    <h4 id="uptime"><font size="+1" color="red"><b> 自我保护机制3.</b></font></h4>
     <%}%>
   </h4>
   <% if (!registry.shouldAllowAccess(false)) { %>
-    <h4 id="uptime"><font size="+1" color="red"><b>This server is not allowing registry fetch for local registry.</b></font></h4>
+    <h4 id="uptime"><font size="+1" color="red"><b>11111.</b></font></h4>
   <% } else if (!registry.shouldAllowAccess(true)) { %>
-    <h4 id="uptime"><font size="+1" color="red"><b>This server is not allowing registry fetch for remote registry.</b></font></h4>
+    <h4 id="uptime"><font size="+1" color="red"><b>22222.</b></font></h4>
   <%}%>
 </div>

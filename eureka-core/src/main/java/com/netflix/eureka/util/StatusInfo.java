@@ -115,6 +115,7 @@ public class StatusInfo {
     /**
      * Output the amount of time that has elapsed since the given date in the
      * format x days, xx:xx.
+     * 注册中心启动时长
      *
      * @return A string representing the formatted interval.
      */

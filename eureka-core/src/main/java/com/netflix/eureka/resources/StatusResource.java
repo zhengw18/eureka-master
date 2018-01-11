@@ -57,6 +57,7 @@ public class StatusResource {
         return statusUtil.getStatusInfo();
     }
 
+    //获得当前时间
     public static String getCurrentTimeAsString() {
         SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
         return format.format(new Date());

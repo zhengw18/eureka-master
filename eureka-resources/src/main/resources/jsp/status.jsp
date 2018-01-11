@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,java.util.Map.Entry,com.netflix.discovery.shared.Pair,
+<%@ page language="java" import="java.lang.String,java.util.*,java.util.Map.Entry,com.netflix.discovery.shared.Pair,
 com.netflix.discovery.shared.*,com.netflix.eureka.util.*,com.netflix.appinfo.InstanceInfo.*,
 com.netflix.appinfo.DataCenterInfo.*,com.netflix.appinfo.AmazonInfo.MetaDataKey,com.netflix.eureka.resources.*,
 com.netflix.eureka.*,com.netflix.appinfo.*,com.netflix.eureka.util.StatusUtil" pageEncoding="UTF-8" %>
@@ -139,9 +139,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            </table>
       </div>
       <div>
-      <div class="sectionTitle">General Info</div>
+      <div class="sectionTitle">一般信息</div>
       <table id='generalInfo' class="stripeable">
-          <tr><th>Name</th><th>Value</th></tr>
+          <tr><th>名称</th><th>值</th></tr>
            <%
            StatusInfo statusInfo = (new StatusUtil(serverContext)).getStatusInfo();
            Map<String,String> genMap = statusInfo.getGeneralStats();
@@ -166,16 +166,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <%
            InstanceInfo instanceInfo = statusInfo.getInstanceInfo();
            Map<String,String> instanceMap = new HashMap<String,String>();
-           instanceMap.put("ipAddr", instanceInfo.getIPAddr());
-           instanceMap.put("status", instanceInfo.getStatus().toString());
+           instanceMap.put("IP地址", instanceInfo.getIPAddr());
+           instanceMap.put("状态", instanceInfo.getStatus().toString());
            if(instanceInfo.getDataCenterInfo().getName() == DataCenterInfo.Name.Amazon) {
                AmazonInfo info = (AmazonInfo) instanceInfo.getDataCenterInfo();
-               instanceMap.put("availability-zone", info.get(AmazonInfo.MetaDataKey.availabilityZone));
-               instanceMap.put("public-ipv4", info.get(AmazonInfo.MetaDataKey.publicIpv4));
-               instanceMap.put("instance-id", info.get(AmazonInfo.MetaDataKey.instanceId));
-               instanceMap.put("public-hostname", info.get(AmazonInfo.MetaDataKey.publicHostname));
-               instanceMap.put("ami-id", info.get(AmazonInfo.MetaDataKey.amiId));
-               instanceMap.put("instance-type", info.get(AmazonInfo.MetaDataKey.instanceType));
+               instanceMap.put("可用区", info.get(AmazonInfo.MetaDataKey.availabilityZone));
+               instanceMap.put("公网ipv4", info.get(AmazonInfo.MetaDataKey.publicIpv4));
+               instanceMap.put("实例id", info.get(AmazonInfo.MetaDataKey.instanceId));
+               instanceMap.put("公共主机名", info.get(AmazonInfo.MetaDataKey.publicHostname));
+               instanceMap.put("amiID", info.get(AmazonInfo.MetaDataKey.amiId));
+               instanceMap.put("实例类型", info.get(AmazonInfo.MetaDataKey.instanceType));
            }
            for (Map.Entry<String,String> entry : instanceMap.entrySet()) {
              out.print("<tr>");
