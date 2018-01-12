@@ -1,5 +1,7 @@
 package com.netflix.eureka;
 
+import com.ctc.wstx.io.SystemId;
+
 import javax.inject.Singleton;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,11 +19,16 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Originally Eureka supported non-compressed responses only. For large registries it was extremely
- * inefficient, so gzip encoding was added. As nowadays all modern HTTP clients support gzip HTTP response
- * transparently, there is no longer need to maintain uncompressed content. By adding this filter, Eureka
- * server will accept only GET requests that explicitly support gzip encoding replies. In the coming minor release
- * non-compressed replies will be dropped altogether, so this filter will become required.
+ * Originally Eureka supported non-compressed responses only.
+ * 最初Eureka只支持非压缩响应。
+ * For large registries it was extremely inefficient, so gzip encoding was added.
+ * 对于大型的注册是非常低效的，所以添加GZIP编码。
+ * As nowadays all modern HTTP clients support gzip HTTP response transparently, there is no longer need to maintain uncompressed content.
+ * 在所有现代的HTTP客户端支持gzip的HTTP响应透明，不再需要保持压缩的内容。
+ * By adding this filter, Eureka server will accept only GET requests that explicitly support gzip encoding replies.
+ * 通过添加此过滤器，Eureka服务器将只接受GET请求，明确支持GZIP编码回复。
+ * In the coming minor release non-compressed replies will be dropped altogether, so this filter will become required.
+ * 在即将发布的小版本中，未压缩的回复将全部删除，因此该过滤器将成为必需的。
  *
  * @author Tomasz Bak
  */
@@ -29,13 +36,17 @@ import java.util.concurrent.atomic.AtomicReference;
 public class GzipEncodingEnforcingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.print("in init()");//测试
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.print("in doFilter()");//测试
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        System.out.print("doFilter() -- if(\"GET\".equals(httpRequest.getMethod())) start");//测试
         if ("GET".equals(httpRequest.getMethod())) {
             String acceptEncoding = httpRequest.getHeader(HttpHeaders.ACCEPT_ENCODING);
+            System.out.print("测试:"+acceptEncoding);//测试
             if (acceptEncoding == null) {
                 chain.doFilter(addGzipAcceptEncoding(httpRequest), response);
                 return;

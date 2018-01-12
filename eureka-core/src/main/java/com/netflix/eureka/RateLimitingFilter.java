@@ -85,7 +85,7 @@ import org.slf4j.LoggerFactory;
  * @author Tomasz Bak
  */
 @Singleton
-public class RateLimitingFilter implements Filter {
+public class  RateLimitingFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(RateLimitingFilter.class);
 
